@@ -1,0 +1,14 @@
+{
+  "name": "Upskilling — SQL practice",
+  "short_name": "Upskilling",
+  "description": "Practice SQL, understand the why, and grow your technical skills.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8f9f5",
+  "theme_color": "#183f32",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
