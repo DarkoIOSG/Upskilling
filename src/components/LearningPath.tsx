@@ -1,24 +1,10 @@
 import { useState } from 'react';
-import { ArrowRight, BookOpen, CheckCircle2, Code2, Search } from 'lucide-react';
+import { ArrowRight, BookOpen, Code2, Search } from 'lucide-react';
 import { levels, topics, questions } from '../data/curriculum';
 import { mastery, topicProgress } from '../lib/progress';
 import type { Progress, Topic } from '../lib/types';
 import { Modal, ProgressBar, Status } from './ui';
-export function Lesson({ topic }: { topic: Topic }) {
-  return (
-    <div className="lesson">
-      <span className="eyebrow">{topic.level} · CONCEPT NOTES</span>
-      <p>{topic.lesson}</p>
-      <pre>
-        <code>{topic.example}</code>
-      </pre>
-      <div className="takeaway">
-        <CheckCircle2 size={19} />
-        <span>{topic.takeaway}</span>
-      </div>
-    </div>
-  );
-}
+import Lesson from './Lesson';
 export default function LearningPath({
   progress,
   start,
@@ -42,7 +28,10 @@ export default function LearningPath({
           <h1>
             One concept <span>at a time.</span>
           </h1>
-          <p>Start at the beginning or explore a challenge. Your path is yours.</p>
+          <p>
+            Short lessons, practical tips, and quick checks. Build understanding, then put it into
+            practice.
+          </p>
         </div>
         <div className="track-pill">
           <Code2 size={18} /> SQL track · {questions.length} questions
@@ -122,7 +111,7 @@ export default function LearningPath({
                         <div className="topic-actions">
                           <button className="text-button" onClick={() => setLesson(t)}>
                             <BookOpen size={15} />
-                            Concept notes
+                            Short lesson
                           </button>
                           <button className="small-button" onClick={() => start(t.id)}>
                             Practice

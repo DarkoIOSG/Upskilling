@@ -30,6 +30,8 @@ Browser tests use locally installed Google Chrome. To use Playwright's Chromium 
 - A real SQLite database powered by sql.js/WebAssembly, with sample data and schema exploration.
 - SQL grading by result values, with additional fixture rows to catch hardcoded output, missing joins, NULL mistakes, and tie handling. Equivalent queries and different aliases are accepted. Column order matters; row order matters only when specified.
 - SQL execution in a disposable Web Worker with a five-second deadline, 500-row result cap, and a read-only database. Practice starts from a fresh fixture each time.
+- **16 short lessons and 32 understanding checks**, available from the learning path and practice help. Each lesson includes a mental model, a SQL example, practical tips, a common mistake, and an official reference.
+- Understanding checks explain both correct and incorrect answers and allow retries. They are learning aids, do not affect mastery or daily goals, and reset when the lesson is closed. Opening help during an unsolved exercise still makes that exercise guided practice.
 - Concept explanations, hints, worked solutions, and follow-up practice when an answer shows a gap.
 - Independent answers contribute to mastery. Hints, notes opened before solving, revealed solutions, and retries after incorrect checks count as guided practice.
 - All three distinct questions must be solved independently for a concept to be mastered. An incorrect review removes that question's mastery evidence.
@@ -55,6 +57,7 @@ src/
   components/       Overview, path, SQL practice, progress, shared UI
   data/
     curriculum.ts   Concepts, lessons, question bank, reference answers
+    lessons.ts      Mini lessons, tips, common mistakes, understanding checks
     database.ts     Schema and visible/additional grading fixtures
   lib/
     progress.ts     Adaptive scheduling, mastery, local progress, validation
@@ -71,7 +74,7 @@ React + TypeScript + Vite. The production output is static and can be served fro
 
 ## Extending the learning system
 
-Add a concept and three independent exercises in `src/data/curriculum.ts`; the path, mastery map, and adaptive scheduler discover them automatically. Keep all question IDs stable because progress references them. A new technical field should have its own curriculum and execution/grading adapter.
+Add a concept and three independent exercises in `src/data/curriculum.ts`, plus its mini lesson in `src/data/lessons.ts`; the path, mastery map, and adaptive scheduler discover them automatically. Each mini lesson needs two tips, a common mistake, two understanding checks with explanations, and an official reference. Keep all question IDs stable because progress references them. A new technical field should have its own curriculum and execution/grading adapter.
 
 For a future AI tutor, add a server-side API rather than placing provider credentials in the client. Keep executable SQL verification as the correctness authority; use the tutor to explain mistakes, generate validated variants, and ask diagnostic follow-up questions. Accounts and durable server-side progress are the next step for automatic mobile/web synchronization. Further SQL coverage can add query-plan labs, engine-specific exercises, gaps and islands, temporal analysis, and mock interview sessions with verbal reasoning.
 

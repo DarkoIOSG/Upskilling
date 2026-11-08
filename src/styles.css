@@ -1446,7 +1446,8 @@ main {
 .lesson .eyebrow {
   font-size: 9px;
 }
-.lesson > p {
+.lesson > p,
+.lesson-panel > p {
   font-size: 12px;
   color: #6c7c60;
   margin-top: 13px;
@@ -1479,6 +1480,179 @@ main {
 .takeaway svg {
   flex-shrink: 0;
   margin-top: 1px;
+}
+.lesson-panel[hidden] {
+  display: none;
+}
+.lesson-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 18px 0 20px;
+  padding: 5px;
+  border-radius: 10px;
+  background: #f1f5eb;
+}
+.lesson-sections button {
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: 9px 11px;
+  border-radius: 7px;
+  background: transparent;
+  color: #596d4b;
+  font-size: 12px;
+}
+.lesson-sections button[aria-pressed='true'] {
+  background: #fff;
+  color: #365825;
+  box-shadow: 0 1px 4px #31451f14;
+  font-weight: 600;
+}
+.mental-model,
+.lesson-pitfall,
+.check-feedback {
+  padding: 15px;
+  border-radius: 9px;
+  margin: 18px 0;
+  background: #f4f6ee;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #536747;
+  overflow-wrap: anywhere;
+}
+.mental-model p,
+.lesson-pitfall p,
+.check-feedback p {
+  margin-top: 6px;
+}
+.lesson-pitfall,
+.check-feedback {
+  background: #faf4e8;
+  color: #77613e;
+  border: 1px solid #eee2c9;
+}
+.check-feedback.is-correct {
+  background: #eef6e7;
+  color: #4a6d34;
+  border-color: #d9e8ca;
+}
+.lesson-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 15px;
+}
+.lesson-tips {
+  padding-left: 22px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: #536747;
+  line-height: 1.9;
+}
+.lesson-tips li + li {
+  margin-top: 12px;
+}
+.lesson-next {
+  min-height: 44px;
+  font-size: 12px;
+}
+.lesson-reference {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin: 10px 0 15px;
+  font-size: 11px;
+  color: #5b7549;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.lesson-intro,
+.check-summary {
+  font-size: 12px;
+  line-height: 1.85;
+  color: #617255;
+}
+.check-summary {
+  margin: 12px 0 18px;
+  font-weight: 600;
+}
+.understanding-card {
+  padding: 18px;
+  border: 1px solid #e3e9da;
+  border-radius: 10px;
+  margin: 16px 0;
+}
+.understanding-card fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.understanding-card legend {
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  font-weight: 600;
+  color: #425737;
+}
+.understanding-card legend .eyebrow {
+  display: block;
+  margin-bottom: 8px;
+}
+.check-options {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+}
+.check-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  min-height: 44px;
+  border: 1px solid #e3e9da;
+  border-radius: 7px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #536747;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.check-option.chosen {
+  background: #f0f6e8;
+  border-color: #9eb985;
+}
+.check-option:focus-within {
+  outline: 2px solid #729754;
+  outline-offset: 2px;
+}
+.check-option input {
+  accent-color: #5c843f;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.understanding-card .button {
+  min-height: 44px;
+  font-size: 12px;
+}
+.understanding-card .text-button {
+  min-height: 44px;
+}
+.understanding-card .button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 .full {
   width: 100%;
@@ -3246,7 +3420,8 @@ tr:last-child td {
     padding: 14px;
     line-height: 1.9;
   }
-  .lesson > p {
+  .lesson > p,
+  .lesson-panel > p {
     font-size: 11px;
   }
   .takeaway {
@@ -3829,7 +4004,8 @@ tr:last-child td {
     font-size: 12px;
   }
   .inline-lesson .lesson > p,
-  .lesson > p {
+  .lesson > p,
+  .lesson-panel > p {
     font-size: 13px;
   }
   .lesson pre,

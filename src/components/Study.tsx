@@ -22,7 +22,7 @@ import { nextQuestion } from '../lib/progress';
 import { runSql } from '../lib/runner';
 import type { Attempt, Evaluation, Progress, QueryResult } from '../lib/types';
 import { DataTable, ProgressBar } from './ui';
-import { Lesson } from './LearningPath';
+import Lesson from './Lesson';
 interface Props {
   progress: Progress;
   focus?: string;

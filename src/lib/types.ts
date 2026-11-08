@@ -8,6 +8,19 @@ export interface Topic {
   example: string;
   takeaway: string;
 }
+export interface UnderstandingCheck {
+  prompt: string;
+  options: [string, string, string];
+  answer: number;
+  explanation: string;
+}
+export interface MiniLesson {
+  mentalModel: string;
+  tips: [string, string];
+  pitfall: string;
+  checks: [UnderstandingCheck, UnderstandingCheck];
+  reference: { title: string; url: string };
+}
 interface BaseQuestion {
   id: string;
   topic: string;
