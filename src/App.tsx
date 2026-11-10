@@ -7,6 +7,7 @@ import {
   ChevronDown,
   Code2,
   Download,
+  GraduationCap,
   LayoutDashboard,
   Leaf,
   Menu,
@@ -21,6 +22,7 @@ import Dashboard from './components/Dashboard';
 import LearningPath from './components/LearningPath';
 import Study from './components/Study';
 import ProgressView from './components/Progress';
+import DatabaseTheory from './components/DatabaseTheory';
 import { Brand, Modal, ProgressBar } from './components/ui';
 import {
   emptyProgress,
@@ -34,12 +36,13 @@ import { recordAttempt } from './lib/progress';
 const nav = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
   { id: 'path', label: 'Learning path', icon: BookOpen },
+  { id: 'theory', label: 'Database theory', icon: GraduationCap },
   { id: 'study', label: 'Practice', icon: Code2 },
   { id: 'progress', label: 'My progress', icon: BarChart3 },
 ];
 export default function App() {
   const [page, setPage] = useState(() =>
-    ['overview', 'path', 'progress', 'study'].includes(location.hash.slice(1))
+    ['overview', 'path', 'theory', 'progress', 'study'].includes(location.hash.slice(1))
       ? location.hash.slice(1)
       : 'overview',
   );
@@ -119,8 +122,8 @@ export default function App() {
             <DatabaseIcon />
           </span>
           <span>
-            <strong>SQL learning track</strong>
-            <small>Build your foundations</small>
+            <strong>Database learning</strong>
+            <small>SQL practice & theory</small>
           </span>
           <ChevronDown size={15} />
         </button>
@@ -216,6 +219,8 @@ export default function App() {
             <Dashboard progress={progress} start={start} navigate={navigate} />
           ) : page === 'path' ? (
             <LearningPath progress={progress} start={start} />
+          ) : page === 'theory' ? (
+            <DatabaseTheory progress={progress} onRecord={record} onSql={() => navigate('path')} />
           ) : page === 'study' ? (
             <Study
               key={sessionKey}
@@ -226,7 +231,7 @@ export default function App() {
               onRestart={() => start(focus)}
             />
           ) : (
-            <ProgressView progress={progress} start={start} />
+            <ProgressView progress={progress} start={start} onTheory={() => navigate('theory')} />
           )}
         </main>
         <footer className="app-footer">
@@ -245,7 +250,15 @@ export default function App() {
             onClick={() => (n.id === 'study' ? start() : navigate(n.id))}
           >
             <n.icon size={20} />
-            <span>{n.id === 'path' ? 'Learn' : n.id === 'progress' ? 'Progress' : n.label}</span>
+            <span>
+              {n.id === 'path'
+                ? 'Learn SQL'
+                : n.id === 'theory'
+                  ? 'Theory'
+                  : n.id === 'progress'
+                    ? 'Progress'
+                    : n.label}
+            </span>
           </button>
         ))}
       </nav>
@@ -334,8 +347,10 @@ export default function App() {
             </span>
             <p>
               Missed or guided answers prioritize a related question. Three independently solved
-              questions build concept mastery; reviews return over time. This version uses curated
-              lessons and rule-based adaptation.
+              questions build concept mastery; reviews return over time. Database theory adds
+              simpler explanations, worked examples, and step-by-step breakdowns. Both tracks count
+              toward your daily goal and share this backup. This version uses curated lessons and
+              rule-based adaptation, rather than a live AI chat tutor.
             </p>
             <a href="https://www.sqlite.org/lang.html" target="_blank" rel="noreferrer">
               SQLite language reference

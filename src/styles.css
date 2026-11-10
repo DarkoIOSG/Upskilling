@@ -4145,3 +4145,404 @@ tr:last-child td {
     font-size: 12px;
   }
 }
+
+/* Database theory shares the learning workspace's typography and calm palette. */
+.theory-dashboard,
+.theory-start {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.theory-dashboard > div,
+.theory-start > div {
+  flex: 1;
+  min-width: 0;
+}
+.theory-dashboard h2,
+.theory-start h2 {
+  font-size: 19px;
+  margin: 5px 0;
+}
+.theory-dashboard p,
+.theory-start p {
+  color: #657467;
+  font-size: 13px;
+}
+.theory-mode-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+  margin-bottom: 26px;
+}
+.theory-mode-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #657467;
+}
+.theory-mode-tabs button[aria-pressed='true'],
+.theory-explain-buttons button[aria-pressed='true'] {
+  background: var(--sage);
+  color: var(--deep);
+  box-shadow: inset 0 0 0 1px #b8cbb2;
+}
+.theory-toolbar .search-input {
+  max-width: 440px;
+  width: 100%;
+  padding: 13px;
+}
+.theory-toolbar .search-input input {
+  font-size: 13px;
+}
+.theory-module-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #657467;
+  font-size: 12px;
+  min-width: 0;
+}
+.theory-module-filter select {
+  max-width: 100%;
+  min-width: 0;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 11px;
+  font-size: 12px;
+}
+.theory-topic .topic-actions {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.theory-next-review {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #657467;
+  margin-top: 8px;
+}
+.theory-reader,
+.theory-practice,
+.theory-complete {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.theory-reader > .text-button {
+  margin-bottom: 18px;
+}
+.theory-lesson,
+.theory-question,
+.theory-complete,
+.theory-book {
+  padding: 32px;
+}
+.theory-lesson > h2,
+.theory-question > h2 {
+  margin: 13px 0 20px;
+  font-size: 25px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.theory-objectives {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 18px 0 24px;
+}
+.theory-objectives > span {
+  background: var(--sage);
+  border-radius: 6px;
+  padding: 6px 9px;
+  font-size: 12px;
+}
+.theory-body {
+  font-size: 16px;
+  line-height: 1.85;
+}
+.theory-body p + p {
+  margin-top: 18px;
+}
+.theory-explain {
+  border: 1px solid #dbe4d4;
+  background: #f6f9f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+}
+.theory-explain h3 {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 15px;
+}
+.theory-explain-buttons,
+.theory-session-actions,
+.theory-reader-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.theory-explain-buttons .small-button {
+  background: white;
+  padding: 10px 12px;
+  font-size: 12px;
+  border: 1px solid var(--border);
+}
+.theory-explanation {
+  border-top: 1px solid #dde6d5;
+  margin-top: 18px;
+  padding-top: 18px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.theory-explanation strong {
+  display: block;
+  margin-bottom: 8px;
+}
+.theory-explanation ol {
+  padding-left: 22px;
+  margin: 0;
+}
+.theory-explanation li + li {
+  margin-top: 10px;
+}
+.theory-recall {
+  background: #f1eff8;
+  padding: 18px 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.theory-recall p {
+  font-size: 14px;
+  margin-top: 6px;
+}
+.theory-readings {
+  display: grid;
+  gap: 9px;
+  padding: 24px 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.theory-readings a,
+.theory-coverage-row a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+}
+.theory-readings svg,
+.theory-coverage-row svg {
+  flex-shrink: 0;
+}
+.theory-reader-nav {
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.theory-session-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: #657467;
+}
+.theory-question {
+  margin-top: 20px;
+}
+.theory-question fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  min-width: 0;
+}
+.theory-question .check-options {
+  margin: 22px 0;
+}
+.theory-question .check-option {
+  font-size: 15px;
+  padding: 15px;
+}
+.theory-correct-option {
+  border-color: #7c9c70;
+  background: #edf6e7;
+}
+.theory-question .check-feedback {
+  font-size: 15px;
+  margin: 20px 0;
+}
+.theory-question .check-feedback h3 {
+  font-size: 18px;
+  margin-bottom: 9px;
+}
+.theory-question .check-feedback p + p {
+  margin-top: 9px;
+}
+.theory-session-actions {
+  margin-top: 20px;
+}
+.theory-complete {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+.theory-revisit {
+  display: grid;
+  gap: 12px;
+  background: #f6f9f0;
+  width: 100%;
+  padding: 18px;
+  border-radius: 10px;
+}
+.theory-revisit button {
+  justify-self: start;
+  text-align: left;
+}
+.theory-coverage-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  background: #edf2e5;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+.theory-coverage-note > svg {
+  flex-shrink: 0;
+}
+.theory-coverage-note h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.theory-coverage-note .text-button {
+  margin-top: 12px;
+}
+.theory-book {
+  margin-bottom: 24px;
+}
+.theory-book h2 {
+  margin: 10px 0;
+}
+.theory-book p {
+  margin-bottom: 14px;
+}
+.theory-book-link {
+  display: inline-flex;
+  text-decoration: none;
+  margin: 5px 0 22px;
+}
+.theory-book summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 12px 0;
+}
+.theory-coverage-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  border-top: 1px solid var(--border);
+  padding: 16px 0;
+  font-size: 13px;
+}
+.theory-coverage-row > div {
+  display: grid;
+  gap: 9px;
+  justify-items: start;
+}
+.theory-coverage-row button {
+  text-align: left;
+}
+.theory-book .metric-note {
+  margin-top: 20px;
+}
+@media (max-width: 850px) {
+  .theory-dashboard,
+  .theory-start {
+    flex-wrap: wrap;
+  }
+  .theory-dashboard > .button,
+  .theory-start > .button {
+    width: 100%;
+  }
+  .theory-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .theory-module-filter select {
+    flex: 1;
+  }
+  .theory-toolbar .search-input {
+    max-width: none;
+  }
+}
+@media (max-width: 520px) {
+  .theory-mode-tabs {
+    gap: 3px;
+  }
+  .theory-mode-tabs button {
+    gap: 5px;
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+  .theory-lesson,
+  .theory-question,
+  .theory-book,
+  .theory-complete {
+    padding: 21px 17px;
+  }
+  .theory-dashboard,
+  .theory-start,
+  .theory-coverage-note {
+    padding: 20px;
+  }
+  .theory-dashboard h2 {
+    font-size: 17px;
+  }
+  .theory-body {
+    font-size: 15px;
+  }
+  .theory-lesson > h2,
+  .theory-question > h2 {
+    font-size: 21px;
+  }
+  .theory-explain {
+    padding: 15px;
+  }
+  .theory-explain-buttons {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .theory-explain-buttons button {
+    min-height: 42px;
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+  }
+  .theory-coverage-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .theory-reader-nav .button {
+    font-size: 11px;
+    padding: 11px;
+  }
+  .theory-session-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .theory-session-actions > .button {
+    width: 100%;
+  }
+}

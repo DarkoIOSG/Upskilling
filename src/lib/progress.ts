@@ -1,4 +1,5 @@
 import { questions, topics } from '../data/curriculum';
+import { theoryLessons, theoryQuestions, theoryQuestionById } from '../data/theory';
 import type { Attempt, Progress, Question, TopicProgress } from './types';
 const DAY = 86400000;
 export const STORAGE_KEY = 'upskilling.progress.v1';
@@ -19,9 +20,14 @@ export function parseProgress(text: string): Progress {
     data.dailyGoal > 50
   )
     throw new Error('This is not a valid Upskilling progress file.');
-  const ids = new Set(questions.map((q) => q.id));
+  const allQuestions = [
+    ...questions,
+    ...theoryQuestions.map((q) => ({ id: q.id, topic: q.lessonId })),
+  ];
+  const allTopics = [...topics, ...theoryLessons];
+  const ids = new Set(allQuestions.map((q) => q.id));
   for (const a of data.attempts) {
-    const q = questions.find((q) => q.id === a.questionId);
+    const q = allQuestions.find((q) => q.id === a.questionId);
     if (
       !q ||
       q.topic !== a.topicId ||
@@ -33,10 +39,10 @@ export function parseProgress(text: string): Progress {
   }
   for (const [id, p] of Object.entries(data.topics)) {
     if (
-      !topics.some((t) => t.id === id) ||
+      !allTopics.some((t) => t.id === id) ||
       !Array.isArray(p.masteredQuestions) ||
       !p.masteredQuestions.every(
-        (qid) => ids.has(qid) && questions.find((q) => q.id === qid)?.topic === id,
+        (qid) => ids.has(qid) && allQuestions.find((q) => q.id === qid)?.topic === id,
       ) ||
       typeof p.needsReview !== 'boolean' ||
       !Number.isFinite(p.dueAt) ||
@@ -72,6 +78,18 @@ export function recordAttempt(p: Progress, a: Attempt): Progress {
     masteredQuestions.push(a.questionId);
   if (!a.correct) masteredQuestions = masteredQuestions.filter((id) => id !== a.questionId);
   const interval = independent ? Math.min(30, Math.max(1, prev.interval * 2)) : 0;
+  // A correct answer to a different theory question must not hide an unresolved
+  // misconception. Keep the lesson due until each previously missed/guided check
+  // has a later independent answer. SQL retains its existing scheduling rules.
+  const latestTheoryAnswers = new Map<string, Attempt>();
+  if (theoryQuestionById[a.questionId]) {
+    for (const attempt of [...p.attempts, a]) {
+      if (attempt.topicId === a.topicId) latestTheoryAnswers.set(attempt.questionId, attempt);
+    }
+  }
+  const needsReview = latestTheoryAnswers.size
+    ? [...latestTheoryAnswers.values()].some((attempt) => !attempt.correct || attempt.assisted)
+    : !independent;
   return {
     ...p,
     attempts: [...p.attempts, a],
@@ -79,9 +97,9 @@ export function recordAttempt(p: Progress, a: Attempt): Progress {
       ...p.topics,
       [a.topicId]: {
         masteredQuestions,
-        needsReview: !independent,
+        needsReview,
         interval,
-        dueAt: a.at + (independent ? interval * DAY : 0),
+        dueAt: a.at + (independent && !needsReview ? interval * DAY : 0),
       },
     },
   };
@@ -95,7 +113,7 @@ export function nextQuestion(
   const pool = focus ? questions.filter((q) => q.topic === focus) : questions;
   const available = pool.filter((q) => !excluded.includes(q.id));
   const candidates = available.length ? available : pool;
-  const last = p.attempts.at(-1);
+  const last = p.attempts.filter((a) => !theoryQuestionById[a.questionId]).at(-1);
   const score = (q: Question) => {
     const t = topicProgress(p, q.topic);
     const attempted = p.attempts.filter((a) => a.questionId === q.id);

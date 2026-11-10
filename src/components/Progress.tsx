@@ -3,12 +3,16 @@ import { topics, topicById, questionById } from '../data/curriculum';
 import { dueTopics, localDay, mastery, streak, topicProgress } from '../lib/progress';
 import type { Progress as ProgressData } from '../lib/types';
 import { ProgressBar, SectionTitle, Status } from './ui';
+import { theoryLessons, theoryLessonById, theoryQuestionById } from '../data/theory';
+import { theoryDue, theoryMastery } from '../lib/theory-progress';
 export default function Progress({
   progress,
   start,
+  onTheory,
 }: {
   progress: ProgressData;
   start: (focus?: string) => void;
+  onTheory: () => void;
 }) {
   const independent = progress.attempts.filter((a) => a.correct && !a.assisted).length;
   const accuracy = progress.attempts.length
@@ -42,7 +46,7 @@ export default function Progress({
               {mastered}
               <small> / {topics.length}</small>
             </strong>
-            <span>Concepts mastered</span>
+            <span>SQL concepts mastered</span>
           </div>
         </div>
         <div className="stat-card">
@@ -66,6 +70,22 @@ export default function Progress({
           </div>
         </div>
       </div>
+      <section className="theory-dashboard white-card">
+        <span className="stat-icon lavender">
+          <BarChart3 size={22} />
+        </span>
+        <div>
+          <h2>Database theory progress</h2>
+          <p>
+            {theoryLessons.filter((l) => theoryMastery(progress, l.id) === 100).length} of{' '}
+            {theoryLessons.length} lessons mastered · {theoryDue(progress).length} to revisit. Both
+            tracks count toward your daily goal and activity history.
+          </p>
+        </div>
+        <button className="button secondary" onClick={onTheory}>
+          Open theory progress
+        </button>
+      </section>
       <div className="progress-layout">
         <section className="white-card activity-card">
           <SectionTitle title="Showing up matters" />
@@ -140,9 +160,11 @@ export default function Progress({
                   {a.correct && !a.assisted ? <CheckCircle2 size={17} /> : <Sparkles size={17} />}
                 </span>
                 <div>
-                  <strong>{questionById[a.questionId]?.title}</strong>
+                  <strong>
+                    {questionById[a.questionId]?.title ?? theoryQuestionById[a.questionId]?.prompt}
+                  </strong>
                   <span>
-                    {topicById[a.topicId]?.title} ·{' '}
+                    {topicById[a.topicId]?.title ?? theoryLessonById[a.topicId]?.title} ·{' '}
                     {a.correct
                       ? a.assisted
                         ? 'Guided success'

@@ -36,5 +36,18 @@ test('production SQL loads, runaway query stops, and loaded tools work offline',
     .getByRole('button', { name: 'Check understanding, question 1', exact: true })
     .click();
   await expect(lesson.getByText('That’s right.', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Close dialog', exact: true }).click();
+  await page.goto('/#theory');
+  await page
+    .getByRole('article')
+    .first()
+    .getByRole('button', { name: 'Read lesson', exact: true })
+    .click();
+  await page.getByRole('button', { name: 'Show a worked example', exact: true }).click();
+  await expect(page.getByText('A worked example', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Practice this lesson', exact: true }).click();
+  await page.getByRole('radio', { name: 'Data redundancy', exact: true }).check();
+  await page.getByRole('button', { name: 'Check theory answer', exact: true }).click();
+  await expect(page.getByText('Independent answer saved.', { exact: true })).toBeVisible();
   await context.setOffline(false);
 });

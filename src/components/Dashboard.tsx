@@ -17,6 +17,8 @@ import { levels, questions, topics, topicById } from '../data/curriculum';
 import { dueTopics, localDay, mastery, nextQuestion, streak, todayAttempts } from '../lib/progress';
 import type { Progress } from '../lib/types';
 import { ProgressBar, SectionTitle } from './ui';
+import { theoryLessons } from '../data/theory';
+import { theoryDue, theoryMastery } from '../lib/theory-progress';
 export default function Dashboard({
   progress,
   start,
@@ -30,7 +32,9 @@ export default function Dashboard({
     current = topicById[next.topic];
   const mastered = topics.filter((t) => mastery(progress, t.id) === 100).length;
   const solved = new Set(
-    progress.attempts.filter((a) => a.correct && !a.assisted).map((a) => a.questionId),
+    progress.attempts
+      .filter((a) => a.correct && !a.assisted && questions.some((q) => q.id === a.questionId))
+      .map((a) => a.questionId),
   ).size;
   const today = new Set(todayAttempts(progress).map((a) => a.questionId)).size;
   const due = dueTopics(progress);
@@ -52,13 +56,32 @@ export default function Dashboard({
           <h1>
             A little better, <span>every day.</span>
           </h1>
-          <p>Big goals. Small steps. Let’s build your SQL confidence.</p>
+          <p>Big goals. Small steps. Build your SQL skills and database understanding.</p>
         </div>
         <span className="date-chip">
           {new Date().toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })}
           <span />A good day to learn
         </span>
       </div>
+      <section className="theory-dashboard white-card">
+        <span className="stat-icon lavender">
+          <BookOpen size={23} />
+        </span>
+        <div>
+          <span className="eyebrow">NEW LEARNING TRACK</span>
+          <h2>Understand the database behind the query.</h2>
+          <p>
+            {theoryLessons.length} theory lessons ·{' '}
+            {theoryLessons.filter((l) => theoryMastery(progress, l.id) === 100).length} mastered
+            {theoryDue(progress).length ? ` · ${theoryDue(progress).length} to revisit` : ''}. Free
+            books, worked examples, and review that follows your gaps.
+          </p>
+        </div>
+        <button className="button secondary" onClick={() => navigate('theory')}>
+          Explore database theory
+          <ArrowRight size={16} />
+        </button>
+      </section>
       <div className="dashboard-grid">
         <div className="main-column">
           <section className="session-card">
